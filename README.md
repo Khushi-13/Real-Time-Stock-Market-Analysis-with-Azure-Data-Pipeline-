@@ -61,22 +61,119 @@ Merging these two datasets allows the project to deliver effective analytics by 
 ---
 
 ## Project Pipeline:
+![Image 1](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/1.png?raw=true)
+
 
 ### Setup and Process:
-Initially, it creates an Event Hub Namespace entitled `StockMarketNamespace`. Then, it creates an Event Hub `stockmarketeventhub` under the above namespace specifically for real-time ingestion of stock market data. The Event Hub has two Consumer Groups - `SDefault` and `dataexplorerconsumergroup` allowing multiple applications to consume the same data stream.  
+Initially, it creates an Event Hub Namespace entitled "StockMarketNamespace." Then, it creates
+an Event Hub "stockmarketeventhub" under the above namespace specifically for real-time
+ingestion of stock market data. The below image shows the Event Hub overview that includes
+metrics such as the number of Incoming requests, successful requests, and throughput for the
+past hour. So, it ensures that the Event Hub is working in readiness for efficient data processing.
+![Image 2](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/2.png?raw=true)
 
-The Azure Stream Analytics job `StockMarket_StreamAnalyticsJob` is created for processing the ingested data using the input source `stockmarketeventhub` and outputs to Power BI for visualization. The Stream Analytics job will ingest input from Event Hubs in real time, ensuring proper data formatting and downstream processing.  
 
-Resource groups such as `Stock_Market_Resource_Group` organize all resources of the project, including Event Hubs, Stream Analytics Jobs, and Data Explorer, for efficient management and monitoring.
+The Event Hub has two Consumer Groups-'SDefault' and 'dataexplorerconsumergroup' and
+these consumer groups let several systems or applications independently consume the same
+stream of stock market data. The second image displays the consumer groups together with
+their locations in the East US region. The graph shows the number of incoming requests and a
+smooth handling of data streams without any errors.
+![Image 3](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/3.png?raw=true)
 
-Queries in Azure Data Explorer access tables like `Stock_Datatable`, which include real-time stock market data including open, close, volume, and adjusted close figures. Analytics queries calculate maximum closing prices, daily price changes, average trading volumes, and volatility of each stock index.  
+
+
+Thus, the Azure Stream Analytics job "StockMarket_StreamAnalyticsJob" created for processing
+the ingested data would use the input source "stockmarketeventhub," and would eventually set
+its output to Power BI for visualization. The third screenshot captures a detailed job
+configuration, including resource group, location, input source, and output details. Meanwhile,
+the status of the Stream Analytics job is "Ready to Start," meaning that it has been correctly set
+up and is ready to take in and process data. The Stream Analytics job will ingest its input
+through the Event Hub (stockmarketeventhub) and will be configured to ingest online data
+streams in real time from Event Hubs. The settings related to this ensure proper data formatting
+and its downstream processing.
+
+![Image 4](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/4.png?raw=true)
+
+This is the homepage of Azure Portal.This image depicts the Azure Services Dashboard, which
+provides access to major services such as Event Hubs, Stream Analytics Jobs, and Data Explorer.
+The page serves as the portal to create and manage resources for stock market analysis.
+
+![Image 5](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/5.png?raw=true)
+
+This screenshot shows the creation of the "Stock_Market_Resource_Group" so that all
+resources of the project such as Event Hubs, Stream Analytics Jobs, and Data Explorer will be
+organized under this group. Resource groups facilitate efficient management and monitoring of
+all related Azure resources.
+
+![Image 6](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/6.png?raw=true)
+The screenshot displays the establishment of the "StockMarketNamespace," which serves as a
+bucket for the Event Hub instance. The namespace supplies a single endpoint to manage all the
+Event Hubs pertaining to the project. The screenshot thus shows the configuration of the
+"stockmarketeventhub," created in the namespace. This Event Hub pulls live stock market data,
+and the metrics such as throughput, messages, and requests are visible for the seamless
+functioning of the hub.
+![Image 7](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/7.png?raw=true)
+
+This screenshot illustrates the shared access policies for the Event Hub, such as
+StockMarketPolicy, which enables such authorized access to send and listen to data streams.
+![Image 8](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/8.png?raw=true)
+This screenshot demonstrates the settings of the "StockMarket_StreamAnalyticsJob". The job
+utilizes data from the Event Hub for the purpose of analytics in Power BI. The Stream Analytics
+Job implements real-time data processing through querying logic or a no-code editor.
+![Image 9](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/9.png?raw=true)
+
+This screenshot represents the configuration of the input of the Stream Analytics Job. The input
+is connected to the "stockmarketeventhub," providing data feed from the Event Hub smoothly
+to the processing pipeline.
+![Image 10](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/10.png?raw=true)
+
+The output in to the Stream Analytics Job as depicted in this screenshot is wired to Power BI for
+Realtime data visualization under the name "StockDataOutput".
+![Image 11](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/11.png?raw=true)
+
+This is an example of a query in Azure Data Explorer through which data from the
+"StockMarketDB" is accessed. This table consists of real-time stock market data including
+"open, close, volume and adjusted close" figures.
+![Image 12](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/12.png?raw=true)
+
+The query will retrieve maximum closing prices for each stock index from a table named
+stock_datatable grouped by indexes and order them in descending order with respect to
+maximum closing prices.
+![Image 13](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/13.png?raw=true)
+
+It calculates the change in price from one day to another, using the High - Low data of various index
+stocks from the Stock_Datatable table, orders them according to highest to lowest price change, and
+selects the top records, with their corresponding dates.
+![Image 14](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/14.png?raw=true)
+
+This query averages the trading volume for each stock index and identifies it from the table called Stock
+Data. It groups all this information according to the Index and sorts the resulting average trading volume
+from highest to lowest.
+
+![Image 15](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/15.png?raw=true)
+
+Computes the volatility (standard deviation of the Close prices) of each of the stock indexes from the
+Stock_Datatable table. The outcome is grouped by Index and ordered in descending order for volatility.
+
+![Image 16](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/16.png?raw=true)
+
+
 
 ---
 
 ## Visualizations:
 
-- Visualization in Azure Data Explorer  
-- Visualization in Power BI  
+- Visualization in Azure Data Explorer
+  ![Image 17](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/17.png?raw=true)
+
+
+  ![Image 18](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/18.png?raw=true)
+![Image 19](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/19.png?raw=true)
+
+- Visualization in Power BI
+  ![Image 20](https://github.com/Khushi-13/Real-Time-Stock-Market-Analysis-with-Azure-Data-Pipeline-/blob/main/20.png?raw=true)
+
+
 
 ---
 
